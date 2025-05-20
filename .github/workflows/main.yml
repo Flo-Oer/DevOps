@@ -21,4 +21,6 @@ jobs:
 
       # Build and test with Maven
       - name: Build and test with Maven
-        run: mvn clean verify --file tp1/java/demo/pom.xml
+        working-directory: ./java/demo
+        run: mvn clean verify
+
