@@ -14,10 +14,12 @@ services:
       - app-network  # Connect to app-network
 
   backend:
-    build: ./demo  # Path to your Spring Boot Dockerfile
+    build: ./java/demo  # Path to your Spring Boot Dockerfile
     container_name: my-springboot-container
     depends_on:
       - database  # Wait for database to be ready before starting
+    ports:
+    - "8080:8080" 
     networks:
       - app-network  # Connect to app-network
 
