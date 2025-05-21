@@ -22,8 +22,8 @@ jobs:
 
       - name: Run SonarQube analysis
         run: mvn -B verify sonar:sonar \
-          -Dsonar.projectKey=<Flo-Oer_DevOps> \
-          -Dsonar.organization=<flo-oer> \
+          -Dsonar.projectKey="Flo-Oer_DevOps" \
+          -Dsonar.organization="flo-oer" \
           -Dsonar.host.url=https://sonarcloud.io \
           -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
           --file tp1/java/demo/pom.xml
