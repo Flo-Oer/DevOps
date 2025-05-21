@@ -1,7 +1,14 @@
-- hosts: all
-  gather_facts: false
-  become: true
+---
+- hosts: all                  # Appliquer à tous les hôtes définis dans l'inventaire
+  become: true               # Exécuter les tâches avec les privilèges root (sudo)
+  gather_facts: true         # Récupérer les informations système (facts) des hôtes
+  
 
-  tasks:
-   - name: Test connection
-     ping:
+  roles:
+    - docker                 # Appelle le rôle nommé "docker" situé dans roles/docker
+    - create_network
+    - launch_proxy
+    - launch_database
+    - launch_app
+
+

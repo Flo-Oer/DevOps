@@ -1,0 +1,11 @@
+- name: Launch Spring Boot container
+  docker_container:
+    name: my-springboot-container
+    image: flooer/tp-devops-backend:v1.0
+    ports:
+      - "8080:8080"
+    depends_on:
+      - my-postgres-container
+    networks:
+      - name: app-network
+    state: started
