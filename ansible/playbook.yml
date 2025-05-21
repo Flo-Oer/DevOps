@@ -5,7 +5,7 @@
   
 
   roles:
-    - docker                 # Appelle le rôle nommé "docker" situé dans roles/docker
+    - install_docker                 # Appelle le rôle nommé "docker" situé dans roles/docker
     - create_network
     - launch_proxy
     - launch_database
