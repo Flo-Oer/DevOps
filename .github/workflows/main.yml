@@ -25,7 +25,7 @@ jobs:
         run: mvn -B verify sonar:sonar \
           -Dsonar.projectKey="Flo-Oer_DevOps" \
           -Dsonar.organization="flo-oer" \
-          -Dsonar.host.url="https://sonarcloud.io" \
+         -Dsonar.host.url="https://sonarcloud.io" \
           -Dsonar.login="${{ secrets.SONAR_TOKEN }}" \
         working-directory: tp1/java/demo
   
