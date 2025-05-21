@@ -18,7 +18,17 @@ jobs:
           distribution: 'temurin'
 
       - name: Build and test with Maven
-        run: mvn clean verify --file tp1/java/demo/pom.xml
+        run: mvn clean verify 
+        working-directory: tp1/java/demo/pom.xml
+
+      - name: Run SonarQube analysis
+        run: mvn -B verify sonar:sonar \
+          -Dsonar.projectKey=<////////////> \
+          -Dsonar.organization=<epf_montpellier> \
+          -Dsonar.host.url=https://sonarcloud.io \
+          -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
+          --file tp1/java/demo/pom.xml
+          
 
   build-and-push-docker-image:
     needs: test-backend
@@ -34,5 +44,19 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: ./tp1/java/demo
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-backend:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-backend:v1.0
+          push: ${{ github.ref == 'refs/heads/main' }}
+
+      - name: Build image and push database
+        uses: docker/build-push-action@v6
+        with:
+          context: ./tp1
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-database:v1.0
+          push: ${{ github.ref == 'refs/heads/main' }}
+
+      - name: Build image and push httpd
+        uses: docker/build-push-action@v6
+        with:
+          context: ./tp1/html
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-httpd:v1.0
           push: ${{ github.ref == 'refs/heads/main' }}
