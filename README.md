@@ -33,15 +33,31 @@ docker-compose logs — view logs from services.
 docker-compose ps — list running containers.
 
 ## 1-8 Document your docker-compose file.
+Defines three services, shared network, and persistent volume for Postgres data.
+It makes the connection between the the three services database, backend and the httpd. we give where they are build, container name , the depends_on, the port and the network it's on.
 
 ## 1-9 Document your publication commands and published images in dockerhub.
-
+I looked wich images I needed with : docker images 
+then Tag the images for Docker Hub : docker tag image username/repository:tag
+Login to Docker Hub : docker login
+Push the image to Docker Hub : docker push username/repository:tag
+ 
 ## 1-10 Why do we put our images into an online repo?
+To share images with others or between environments.
+Enables continuous integration/deployment workflows.
+Provides a central storage for versioned images.
+Simplifies deployment to production or cloud environments.
+Ensures consistency across developer machines and servers.
+
 
 ## 2-1 What are testcontainers?
+Docker-based test environments for integration testing, making your tests more realistic and reliable.
 
 ## 2-2 For what purpose do we need to use secured variables ?
+It's used to secure and protect sensible data in a automized process
 
-## 2-3 Why did we put needs: build-and-test-backend on this job? Maybe try without this and you will see!
+## 2-3 Why did we put needs: build-and-test-backend on this job? 
+we put needs on a job to make it dependent on the successful completion of the build-and-test-backend job.
 
 ## 2-4 For what purpose do we need to push docker images?
+
