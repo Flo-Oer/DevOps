@@ -47,11 +47,11 @@ jobs:
         with:
           context: ./tp1
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-database:v1.0
-          push: ${{ github.ref == 'refs/heads/main' }}
+          push: true
 
       - name: Build image and push httpd
         uses: docker/build-push-action@v6
         with:
           context: ./tp1/html
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-httpd:v1.0
-          push: ${{ github.ref == 'refs/heads/main' }}
+          push: true
