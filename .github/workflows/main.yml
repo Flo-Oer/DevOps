@@ -18,8 +18,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Build and test with Maven
-        run: mvn clean verify 
-        working-directory: tp1/java/demo/pom.xml
+        run: mvn clean verify --file tp1/java/demo/pom.xml
 
       - name: Run SonarQube analysis
         run: mvn -B verify sonar:sonar \
