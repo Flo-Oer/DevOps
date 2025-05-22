@@ -2,6 +2,7 @@
   docker_container:
     name: my-postgres-container
     image: flooer/tp-devops-database:v1.0
+    pull: always
     env:
       POSTGRES_DB: db
       POSTGRES_USER: usr
