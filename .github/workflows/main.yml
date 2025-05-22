@@ -55,3 +55,27 @@ jobs:
           context: ./tp1/html
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-httpd:v1.0
           push: true
+  deploy-to-server:
+    needs: build-and-push-docker-image
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+  
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+  
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H flo.oerlemans.takima.cloud >> ~/.ssh/known_hosts
+  
+      - name: Install Ansible
+        run: sudo apt update && sudo apt install -y ansible
+  
+      - name: Run Ansible playbook from GitHub
+        run: ansible-playbook -i inventories/setup.yml playbook.yml
+        working-directory: ./ansible
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: "False"
